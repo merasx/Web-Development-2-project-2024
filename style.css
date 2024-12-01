@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+body {
+    background-color: burlywood;
+    text-align: center;
+}
+header{
+    background-image:url('../images/facts2.jpg');
+    background-size: cover;
+    background-position: center;
+    color: rgb(254, 215, 175);
+    text-align: center;
+    padding: 100px 0;
+    font-family: 'Lora', serif;
+}
+
+div.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 5px;
+    background-color: #ffda99;
+    border: 2px solid #ffda99;
+    }
+      
+    nav{
+    position: sticky;
+    top: 0;
+    padding: 5px;
+
+    }
+.navbar {
+
+    background-color: antiquewhite;
+    overflow: hidden;
+    font-family: 'Lora', serif;
+    text-align: center;
+      
+}
+.navbar a {
+    float: center;
+    display: inline;
+    color: #d6b08f; 
+    text-align: center;
+    padding: 18px 20px;
+    text-decoration: none
+}
+img {
+    transition: transform 0.3s ease-in-out;
+    float: center;
+    display:inline;
+    }
+    img:hover {
+    transform: scale(1.1);
+    box-shadow: 3px 3px 5px #888;
+ 
+
+    }
+    footer {
+        background-color: #5c4534; 
+        color: #fff; 
+        text-align: center;
+        padding: 5px
+    }
+
+    
+      .dark-mode {
+        background-color: rgb(84, 54, 30);
+        color: white;
+      }
+      .light-mode {
+        background-color: burlywood;
+        color: black;
+       }
+
+      #mode {
+        width: 50%;
+        height: 50%;
+      }
+      #image {
+        height: 233.33px;
+        width: 233.33px;
+      background: 
+      url('https://miro.medium.com/max/1400/1*WhDjw8GiV5o0flBXM4LXEw.png') 0px 0px;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto Slab", serif;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+    135deg,
+    rgb(30, 250, 180),
+    rgb(180, 30, 250)
+  );
+}
+
+.form-wrapper {
+  width: 50%;
+  max-width: 50px;
+  padding: 50px;
+
+  background-color: white;
+  box-shadow: 0 0 10px rgba(30, 250, 180, 0.4);
+}
+
+.title {
+  margin-bottom: 50px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+  color: black;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+input {
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+label {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+input:not([type="submit"]) {
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+}
+
+input[type="submit"] {
+  background-color: rgb(8, 131, 92);
+  color: white;
+  font-size: 20px;
+}
+input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: rgb(35, 235, 171);
+}
+
+input[type="submit"]:active {
+  background-color: rgb(28, 80, 63);
+}
+
+th {
+  background-color: #d2995c;
+  color: white;
+}
+.error #emailError,
+.error #passwordError {
+  color: red;
+}
+.error input {
+  border: 2px solid red;
+}
+
+.msg {
+  display: none;
+}

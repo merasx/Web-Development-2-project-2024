@@ -1,3 +1,46 @@
+<?php 
+session_start();
+include_once "connection.php"; // Include your DB connection file
+
+// Check if the form is submitted
+if (isset($_POST['register'])) {
+    // Get the form data
+    $username = $conn->real_escape_string($_POST['username']);
+    $password = $conn->real_escape_string($_POST['password']);
+    $firstName = $conn->real_escape_string($_POST['firstName']);
+    $surName = $conn->real_escape_string($_POST['surName']);
+    $addressLine1 = $conn->real_escape_string($_POST['addressLine1']);
+    $addressLine2 = $conn->real_escape_string($_POST['addressLine2']);
+    $city = $conn->real_escape_string($_POST['city']);
+    $telephone = $conn->real_escape_string($_POST['telephone']);
+    $mobile = $conn->real_escape_string($_POST['mobile']);
+    
+    // Check if the username already exists
+    $checkUsername = "SELECT * FROM users WHERE username = '$username'";
+    $result = $conn->query($checkUsername);
+    
+    if ($result->num_rows > 0) {
+        // If the username exists, show an error message
+        $_SESSION["error"] = "Username already exists. Please choose a different username.";
+    } else {
+        // Insert the user data into the database
+        $sql = "INSERT INTO users (username, password, firstName, surName, addressLine1, addressLine2, city, telephone, mobile)
+                VALUES ('$username', '$password', '$firstName', '$surName', '$addressLine1', '$addressLine2', '$city', '$telephone', '$mobile')";
+        
+        if ($conn->query($sql) === TRUE) {
+            // After successful registration, log the user in and redirect them to index.php
+            $_SESSION["username"] = $username;
+            $_SESSION["success"] = "Registration successful! You are now logged in.";
+            header("Location: index.php");
+            exit;  // Ensure no further code is executed after the redirect
+        } else {
+            // If the query fails
+            $_SESSION["error"] = "Error: " . $conn->error;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,57 +49,33 @@
     <title>User Registration</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container" id="signup">
-        <h1 class="form-title">Register</h1>
-        <form method="post" action ="registerhandler.php">
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" id="username" name="username" placeholder="username" required>
-                <label for="username">Username</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" placeholder="password" required>
-                <label for="password">Password</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" id="fName" name="fName" placeholder="First Name" required>
-                <label for="fName">First Name</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" id="lName" name="lName" placeholder="Last Name" required>
-                <label for="lName">Last Name</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-envelope"></i>
-                <input type="text" id="addressLine1" name="addressLine1" placeholder="Address Line 1" required>
-                <label for="addressLine1">Address Line 1</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-map-marker-alt"></i>
-                <input type="text" id="addressLine2" name="addressLine2" placeholder="Address Line 2">
-                <label for="addressLine2">Address Line 2</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-city"></i>
-                <input type="text" id="city" name="city" placeholder="City" required>
-                <label for="city">City</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-phone"></i>
-                <input type="text" id="telephone" name="telephone" placeholder="Telephone" required>
-                <label for="telephone">Telephone</label>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-mobile-alt"></i>
-                <input type="text" id="mobile" name="mobile" placeholder="Mobile" required>
-                <label for="mobile">Mobile</label>
-            </div>
-            <input type="submit" class="btn" value="Sign Up" name="signUp">
-        </form>
-    </div>
+<body style="font-family: sans-serif;">
+    <header>
+        <h1>Register an Account</h1>
+    </header>
+
+    <?php
+    // Display error message if any
+    if (isset($_SESSION["error"])) {
+        echo('<p style="color:red">' . $_SESSION["error"] . "</p>");
+        unset($_SESSION["error"]);
+    }
+    ?>
+
+    <form method="post" action="userReg.php">
+        <p>Username: <input type="text" name="username" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p>First Name: <input type="text" name="firstName" required></p>
+        <p>Last Name: <input type="text" name="surName" required></p>
+        <p>Address Line 1: <input type="text" name="addressLine1" required></p>
+        <p>Address Line 2: <input type="text" name="addressLine2"></p>
+        <p>City: <input type="text" name="city" required></p>
+        <p>Telephone: <input type="text" name="telephone" required></p>
+        <p>Mobile: <input type="text" name="mobile" required></p>
+
+        <p><input type="submit" value="Register" name="register"></p>
+    </form>
+
+    <p>Already have an account? <a href="login.php">Log in here</a></p>
 </body>
 </html>

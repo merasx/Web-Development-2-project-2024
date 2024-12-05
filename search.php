@@ -17,7 +17,7 @@ session_start();
 <body>
             <nav class="navbar bg-body-tertiary">  
             <a href="index.php">Home</a>
-            <a href= "listOfBooks.php">list of books</a>
+            <a href="listOfReservations.php">My Reservations</a>
             <a href= "search.php">search</a>
             <a href = "logout.php">logout</a>
             </nav>
@@ -69,37 +69,6 @@ session_start();
     </form>
 
     <?php
-    // Handle reservation request
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reserve_isbn'])) {
-        $isbnToReserve = $conn->real_escape_string($_POST['reserve_isbn']);
-        $username = $conn->real_escape_string($_POST['username']);
-        $password = $conn->real_escape_string($_POST['password']);
-        $reserveDate = $conn->real_escape_string($_POST['reserve_date']);
-
-        // Check if the book is already reserved
-        $checkReservationQuery = "SELECT reserved FROM books WHERE ISBN = '$isbnToReserve'";
-        $checkReservationResult = $conn->query($checkReservationQuery);
-
-        if ($checkReservationResult->num_rows > 0) {
-            $row = $checkReservationResult->fetch_assoc();
-            if ($row['reserved'] === 'Y') {
-                echo "<p style='color: red;'>This book is already reserved.</p>";
-            } else {
-                // Insert reservation into the reservations table
-                $insertReservationQuery = "INSERT INTO reservations (ISBN, username, password, reserve_date) 
-                                            VALUES ('$isbnToReserve', '$username', '$password', '$reserveDate')";
-                if ($conn->query($insertReservationQuery) === TRUE) {
-                    // Update book reservation status
-                    $reserveQuery = "UPDATE books SET reserved = 'Y' WHERE ISBN = '$isbnToReserve'";
-                    $conn->query($reserveQuery);
-                    echo "<p style='color: green;'>Book successfully reserved!</p>";
-                } else {
-                    echo "<p style='color: red;'>Failed to reserve the book: " . $conn->error . "</p>";
-                }
-            }
-        }
-    }
-
     // Handle search functionality
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $title = isset($_GET['title']) ? $conn->real_escape_string($_GET['title']) : '';
@@ -143,17 +112,11 @@ session_start();
                 if ($row['reserved'] === 'Y') {
                     echo "<span style='color: red;'>Reserved</span>";
                 } else {
-                    echo "<button onclick='openReservationForm(\"$isbn\")'>Reserve</button>";
-                    echo "<div id='reservation-form-$isbn' class='reservation-form'>
-                            <form method='POST' action=''>
-                                <input type='hidden' name='reserve_isbn' value='$isbn'>
-                                Username: <input type='text' name='username' required><br><br>
-                                Password: <input type='password' name='password' required><br><br>
-                                Reservation Date: <input type='date' name='reserve_date' required><br><br>
-                                <button type='submit'>Reserve</button>
-                                <button type='button' onclick='closeReservationForm(\"$isbn\")'>Cancel</button>
-                            </form>
-                          </div>";
+                    // Updated reservation form
+                    echo "<form method='POST' action='reservations.php'>
+                            <input type='hidden' name='reserve_isbn' value='$isbn'>
+                            <button type='submit'>Reserve</button>
+                          </form>";
                 }
                 echo "</td>";
                 echo "</tr>";
@@ -167,18 +130,6 @@ session_start();
     // Close the database connection
     $conn->close();
     ?>
-
-    <script>
-        function openReservationForm(isbn) {
-            // Show the reservation form for the selected book
-            document.getElementById("reservation-form-" + isbn).style.display = "block";
-        }
-
-        function closeReservationForm(isbn) {
-            // Hide the reservation form for the selected book
-            document.getElementById("reservation-form-" + isbn).style.display = "none";
-        }
-    </script>
     <?php } ?>
 </body>
 </html>

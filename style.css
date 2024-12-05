@@ -14,6 +14,8 @@ header{
     font-family: 'Lora', serif;
 }
 
+
+
 div.sticky {
     position: -webkit-sticky;
     position: sticky;
@@ -45,45 +47,28 @@ div.sticky {
     padding: 18px 20px;
     text-decoration: none
 }
+
 img {
     transition: transform 0.3s ease-in-out;
     float: center;
     display:inline;
-    }
-    img:hover {
-    transform: scale(1.1);
-    box-shadow: 3px 3px 5px #888;
- 
+}
 
-    }
-    footer {
-        background-color: #5c4534; 
-        color: #fff; 
-        text-align: center;
-        padding: 5px
-    }
+img:hover {
+  transform: scale(1.1);
+  box-shadow: 3px 3px 5px #888;
 
-    
-      .dark-mode {
-        background-color: rgb(84, 54, 30);
-        color: white;
-      }
-      .light-mode {
-        background-color: burlywood;
-        color: black;
-       }
 
-      #mode {
-        width: 50%;
-        height: 50%;
-      }
-      #image {
-        height: 233.33px;
-        width: 233.33px;
-      background: 
-      url('https://miro.medium.com/max/1400/1*WhDjw8GiV5o0flBXM4LXEw.png') 0px 0px;
-      }
-      @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;700&display=swap");
+}
+
+footer {
+    background-color: #5c4534; 
+    color: #fff; 
+    text-align: center;
+    padding: 5px
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;700&display=swap");
 
 * {
   padding: 0;
@@ -145,7 +130,7 @@ label {
 }
 
 input:not([type="submit"]) {
-  width: 100%;
+  width: 50%;
   border: 2px solid rgba(0, 0, 0, 0.7);
 }
 
@@ -167,7 +152,7 @@ th {
   background-color: #d2995c;
   color: white;
 }
-.error #emailError,
+
 .error #passwordError {
   color: red;
 }
@@ -177,4 +162,10 @@ th {
 
 .msg {
   display: none;
+}
+table {
+  width: 80%;
+}
+td {
+  text-align: center;
 }

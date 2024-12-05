@@ -49,7 +49,9 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
 </head>
 <body style="font-family: sans-serif;">
+<header>
 <h1>Please Log In</h1>
+</header>
 <?php
 if (isset($_SESSION["error"])) {
     echo('<p style="color:red">Error: ' . $_SESSION["error"] . "</p>\n");
@@ -60,6 +62,7 @@ if (isset($_SESSION["error"])) {
 <p>Username: <input type="text" name="username" value=""></p>
 <p>Password: <input type="password" name="password" value=""></p>
 <p><input type="submit" value="Log In"></p>
+<p>dont have an account? <a href="userReg.php">register here!</a></p>
 </form>
 </body>
 </html>

@@ -17,7 +17,7 @@ session_start();
     <body>
             <nav class="navbar bg-body-tertiary">
             <a href="index.php">Home</a>
-            <a href= "listOfBooks.php">list of books</a>
+            <a href="listOfReservations.php">My Reservations</a>
             <a href= "search.php">search</a>
             <a href = "logout.php">logout</a>
             </nav>

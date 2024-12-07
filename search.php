@@ -84,14 +84,23 @@ $offset = ($page - 1) * $items_per_page;
                 FROM books 
                 LEFT JOIN categories ON books.category = categories.CategoryID 
                 WHERE 1=1";
+        
+        //checks if title has a value
         if (!empty($title)) 
         {
+            //this makes the search partial, rows with $title anywhere in the bookTitle will match.
             $sql .= " AND books.bookTitle LIKE '%$title%'";
         }
-        if (!empty($author)) {
+        //checks if author has a value
+        if (!empty($author)) 
+        {
+            //rows that match author anywhere close to the title will pop up
             $sql .= " AND books.author LIKE '%$author%'";
         }
-        if (!empty($category)) {
+        //checks if category has a value
+        if (!empty($category)) 
+        {
+            //shows books that match the category
             $sql .= " AND books.category = '$category'";
         }
 

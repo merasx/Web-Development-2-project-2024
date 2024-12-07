@@ -10,6 +10,7 @@ if (isset($_POST['register']))
     // get data
     $username = $conn->real_escape_string($_POST['username']);
     $password = $conn->real_escape_string($_POST['password']);
+    $confirm_password = $conn->real_escape_string($_POST["password2"]);
     $firstName = $conn->real_escape_string($_POST['firstName']);
     $surName = $conn->real_escape_string($_POST['surName']);
     $addressLine1 = $conn->real_escape_string($_POST['addressLine1']);
@@ -26,7 +27,42 @@ if (isset($_POST['register']))
     {
         // if the username exists- show an error message
         $_SESSION["error"] = "Username already exists. Please choose a different username.";
+    }
+    elseif ($password !== $confirm_password)
+    {
+        //if passwords dont match
+        $_SESSION["error"] = "Passwords don't match";
     } 
+    elseif (strlen($password) < 6)
+    {
+        //if password is too short
+        $_SESSION["error"] = "Password is too short";
+    }
+    elseif (strlen($password) > 6)
+    {
+        //if password is too long
+        $_SESSION["error"] = "Password is too long";
+    }
+    elseif (strlen($mobile) < 10)
+    {
+        //if mobile number is too short
+        $_SESSION["error"] = "mobile number is too short";
+    }
+    elseif (strlen($mobile) > 10)
+    {
+        //if mobile number is too long
+        $_SESSION["error"] = "mobile number is too long";
+    }
+    elseif (strlen($telephone) < 10)
+    {
+        //if telephone number is too short
+        $_SESSION["error"] = "telephone number is too short";
+    }
+    elseif (strlen($telephone) > 10)
+    {
+        //if telephone number is too long
+        $_SESSION["error"] = "telephone number is too long";
+    }
     else 
     {
         // insert users data into database
@@ -81,6 +117,7 @@ if (isset($_POST['register']))
     <form method="post" action="userReg.php">
         <p>Username: <input type="text" name="username" required></p>
         <p>Password: <input type="password" name="password" required></p>
+        <p>Confirm Password: <input type="password" name="password2" required></p>
         <p>First Name: <input type="text" name="firstName" required></p>
         <p>Last Name: <input type="text" name="surName" required></p>
         <p>Address Line 1: <input type="text" name="addressLine1" required></p>
